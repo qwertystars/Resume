@@ -57,7 +57,7 @@ HIRESIGHT is an AI-powered recruitment platform that automates candidate evaluat
 
 ### High-Level Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                         FRONTEND                            │
 │  React + TypeScript + Tailwind + Vite                       │
@@ -110,7 +110,7 @@ HIRESIGHT is an AI-powered recruitment platform that automates candidate evaluat
 ## Project Structure
 
 ### Backend Structure
-```
+```text
 backend/
 ├── alembic/                 # Database migrations
 │   └── versions/
@@ -157,7 +157,7 @@ backend/
 ```
 
 ### Frontend Structure
-```
+```text
 frontend/
 ├── public/
 ├── src/

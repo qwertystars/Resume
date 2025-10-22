@@ -18,6 +18,7 @@ from app.core.config import settings
 from app.models.email_log import EmailLog
 from app.models.email_template import EmailTemplate
 from sqlalchemy.orm import Session
+from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
@@ -128,6 +129,9 @@ class EmailService:
 from celery import shared_task
 from app.services.email_service import EmailService
 from app.core.database import SessionLocal
+import logging
+
+logger = logging.getLogger(__name__)
 
 @shared_task(bind=True, max_retries=3)
 def send_email_task(self, to_email, to_name, template_key, variables, team_id):
@@ -533,10 +537,13 @@ class CalendarService:
             "items": [{"id": email}]
         }
 
-        eventsResult = self.service.freebusy().query(body=body).execute()
-        busy_times = eventsResult['calendars'][email]['busy']
-
-        return len(busy_times) == 0
+        try:
+            eventsResult = self.service.freebusy().query(body=body).execute()
+            busy_times = eventsResult.get('calendars', {}).get(email, {}).get('busy', [])
+            return len(busy_times) == 0
+        except Exception as e:
+            logger.error(f"Error checking availability for {email}: {str(e)}")
+            return False  # Safe default
 ```
 
 ---
@@ -551,6 +558,15 @@ class CalendarService:
 import React, { useState } from 'react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { createEmailTemplate } from '../../services/integrationService';
+
+interface EmailTemplate {
+  template_name: string;
+  template_key: string;
+  subject: string;
+  body_html: string;
+  variables: string[];
+}
 
 export const EmailTemplateBuilder: React.FC = () => {
   const [template, setTemplate] = useState({

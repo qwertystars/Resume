@@ -10,7 +10,7 @@ Complete REST API documentation for HIRESIGHT platform. All endpoints return JSO
 ## Authentication
 
 All authenticated endpoints require a JWT Bearer token in the Authorization header:
-```
+```text
 Authorization: Bearer <access_token>
 ```
 
@@ -1273,6 +1273,7 @@ Create new API key.
 {
   "success": true,
   "data": {
+    // EXAMPLE: Replace with actual API key
     "api_key": "hs_live_abcdef123456789",
     "message": "Store this key securely. It won't be shown again."
   }

@@ -7,7 +7,7 @@ This guide covers implementing the intelligent scoring engine that evaluates can
 
 ## Scoring Architecture
 
-```
+```text
 Input Data → Feature Extraction → Rule Evaluation → Weight Application → Score Aggregation → Percentile Ranking
 ```
 

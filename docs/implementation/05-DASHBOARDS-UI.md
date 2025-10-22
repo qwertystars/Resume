@@ -368,7 +368,7 @@ export const CandidateTable: React.FC<CandidateTableProps> = ({
             </button>
             <button
               onClick={() => onPageChange(pagination.page + 1)}
-              disabled={pagination.page >= pagination.total_pages}
+              disabled={pagination.page * pagination.per_page >= pagination.total}
               className="px-3 py-1 border rounded disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next

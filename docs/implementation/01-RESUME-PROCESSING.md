@@ -7,7 +7,7 @@ This guide covers building the complete resume processing pipeline: file upload,
 
 ## Architecture
 
-```
+```text
 Upload → Validate → Store (S3) → Queue Parse Job → Extract Text → Parse Fields → Save to DB → Calculate Score
 ```
 

@@ -200,13 +200,15 @@ async def register(
     db.commit()
 
     # Generate tokens
-    access_token = create_access_token({"sub": str(user.id)})
+    jti = str(uuid.uuid4())
+    access_token = create_access_token({"sub": str(user.id), "jti": jti})
     refresh_token = create_refresh_token({"sub": str(user.id)})
 
     # Store session
     session = SessionModel(
         user_id=user.id,
         refresh_token=refresh_token,
+        access_token_jti=jti,
         expires_at=datetime.utcnow() + timedelta(days=30)
     )
     db.add(session)

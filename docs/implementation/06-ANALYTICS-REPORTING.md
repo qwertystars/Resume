@@ -138,15 +138,18 @@ class AnalyticsService:
         return {"stages": funnel_data}
 
     def get_trends(self, metric: str, period: str, start_date: datetime, end_date: datetime):
-        """Get trends over time"""
+        """Get trends over time - database agnostic"""
+        from sqlalchemy import Date, cast
 
-        # Determine grouping
+        # Determine grouping (database agnostic)
         if period == "day":
-            date_trunc = func.date_trunc('day', Candidate.created_at)
+            date_trunc = cast(Candidate.created_at, Date)
         elif period == "week":
+            # PostgreSQL-specific for now, but can be extended for other DBs
             date_trunc = func.date_trunc('week', Candidate.created_at)
         else:  # month
-            date_trunc = func.date_trunc('month', Candidate.created_at)
+            # Database agnostic month grouping
+            date_trunc = func.date_format(Candidate.created_at, '%Y-%m')
 
         if metric == "applications":
             # Count new applications

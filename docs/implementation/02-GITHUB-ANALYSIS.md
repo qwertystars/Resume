@@ -419,13 +419,14 @@ logger = logging.getLogger(__name__)
 @shared_task(bind=True, max_retries=3)
 def analyze_github_profile_task(self, candidate_id: str, username: str, access_token: str = None):
     """Analyze GitHub profile in background"""
+    import asyncio
     db = SessionLocal()
 
     try:
         analyzer = GitHubAnalyzer(access_token)
 
         # Run complete analysis
-        analysis = await analyzer.complete_analysis(username)
+        analysis = asyncio.run(analyzer.complete_analysis(username))
 
         # Save to database
         profile = db.query(CandidateGitHubProfile).filter(

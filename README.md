@@ -211,7 +211,7 @@ Based on the implementation guides, here's an estimated timeline:
 ## API Overview
 
 ### Authentication
-```
+```bash
 POST /api/v1/auth/register
 POST /api/v1/auth/login
 POST /api/v1/auth/refresh
@@ -219,7 +219,7 @@ POST /api/v1/auth/logout
 ```
 
 ### Candidates
-```
+```bash
 GET    /api/v1/candidates
 POST   /api/v1/candidates
 GET    /api/v1/candidates/{id}
@@ -228,7 +228,7 @@ DELETE /api/v1/candidates/{id}
 ```
 
 ### Resumes
-```
+```bash
 POST /api/v1/resumes/upload
 POST /api/v1/resumes/bulk-upload
 GET  /api/v1/resumes/{id}
@@ -236,14 +236,14 @@ GET  /api/v1/resumes/{id}/download
 ```
 
 ### GitHub
-```
+```bash
 POST /api/v1/github/connect
 GET  /api/v1/github/profile/{username}
 POST /api/v1/github/analyze/{candidate_id}
 ```
 
 ### Scoring
-```
+```bash
 POST /api/v1/scoring/calculate/{candidate_id}
 GET  /api/v1/scoring/history/{candidate_id}
 GET  /api/v1/scoring/rules
@@ -251,7 +251,7 @@ POST /api/v1/scoring/rules
 ```
 
 ### Analytics
-```
+```bash
 GET /api/v1/analytics/overview
 GET /api/v1/analytics/funnel
 GET /api/v1/analytics/trends
